@@ -45,3 +45,27 @@ class Timer {
     return (millis() - startTime);
   }
 }
+
+class SystemTimer {
+  private long startTime;
+  private long lastUpdateTime;
+
+  public SystemTimer() {
+    startTimer();
+  }
+
+  public void startTimer() {
+    startTime = millis();
+    lastUpdateTime = startTime;
+  }
+  
+  public long update() {
+    long diff = millis() - lastUpdateTime;
+    lastUpdateTime = millis();
+    return diff;
+  }
+  
+  public long runningFor() {
+    return (millis() - startTime);
+  }
+}
