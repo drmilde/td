@@ -2,13 +2,15 @@
 // wird im Partikelsystem verwaltet
 // JTM 12/2018
 
-class SimpleParticle extends Particle {   
+class SimpleParticle extends Particle implements ITimerCallback {
+  private Timer spawnTimer; 
+
   public SimpleParticle(float x, float y, float speed, ParticleSystem parent) {
     super(x, y, speed, parent);
 
-    sprite = new Sprite(
-    loadImage("towerDefense_tile250_0_degrees.png"), 
-    10, 0 , true);
+    sprite = new Sprite(loadImage("towerDefense_tile250_0_degrees.png"), 10, 0, true);
+    spawnTimer = new Timer(200, 0, 1, true, this);
+    spawnTimer.startTimer();
   }
 
   public SimpleParticle(float x, float y, ParticleSystem parent) {
@@ -32,6 +34,7 @@ class SimpleParticle extends Particle {
 
   void update() {
     locRot.forward(speed);
+    spawnTimer.update();
   }
 
   public void pointTo(float px, float py) {
@@ -40,5 +43,12 @@ class SimpleParticle extends Particle {
 
   public void jumpTo(float px, float py) {
     locRot.jumpTo(px, py);
+  }
+
+  // ITimerCallback
+
+  public void alarm() {
+    //println ("boom");
+    ps.add(new RocketParticle(getX(), getY(), random(0, 0), parent));
   }
 }

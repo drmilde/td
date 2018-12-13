@@ -30,12 +30,19 @@ class ParticleSystem {
     }
   }
 
+  public void clear(int idx) {
+    teilchen[idx] = null;
+  }
+
   // methoden particle system
   public int getCurrent() {
     return current;
   }
 
   public void add (IParticle pt) {
+    if (pt != null) {
+      pt.setIDX(current);
+    }
     teilchen[current] = pt;
     current++;
     current %= MAX_NUMBER;
@@ -65,7 +72,7 @@ class ParticleSystem {
   public void pointTo(float px, float py) {
     for (int i = 0; i< MAX_NUMBER; i++) {
       if (teilchen[i] != null) {
-        teilchen[i].pointTo(px, py);
+        teilchen[i].pointTo(new Target(px, py));
       }
     }
   }

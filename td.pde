@@ -30,6 +30,7 @@ void draw() {
    */
 
   ps.pointTo(mouseX, mouseY);
+  ps.pointTo(width/2, height/2);
   ps.update();
   ps.draw();
 

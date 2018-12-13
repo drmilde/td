@@ -5,11 +5,19 @@ class Timer {
   private float to;
   private long duration;
 
-  public Timer(long duration, float from, float to, boolean cyclic) {
+  // callback
+  ITimerCallback tc = null;
+
+  public Timer(long duration, float from, float to, boolean cyclic, ITimerCallback tc) {
     this.duration = duration;
     this.from = from;
     this.to = to;
     this.cyclic = cyclic;
+    this.tc = tc;
+  }
+
+  public Timer(long duration, float from, float to, boolean cyclic) {
+    this(duration, from, to, cyclic, null);
   }
 
   public Timer(long duration, boolean cyclic) {
@@ -26,15 +34,17 @@ class Timer {
 
   public float update() {
     long diff = (millis() - startTime);
-
     if (diff > duration) {
       if (cyclic) {
         startTimer();
-      } 
-      return to;
+      }
+      // wenn registriert, ruft den alarm auf
+      if (tc != null) {
+        tc.alarm();
+      }
     }
 
-    return map(diff, 0, duration, from, to);
+    return constrain(map(diff, 0, duration, from, to), from, to);
   }
 
   public boolean isReady() {
@@ -95,5 +105,9 @@ class DistanceTimer {
     float step = newPos - distanceTravelled;
     distanceTravelled = newPos;
     return step;
+  }
+  
+  public boolean isFinished() {
+    return ((millis() - startTime) > duration);
   }
 }

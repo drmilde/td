@@ -4,11 +4,11 @@
 
 class RocketParticle extends Particle {
   private DistanceTimer dt;
-  
+
   public RocketParticle(float x, float y, float speed, ParticleSystem parent) {
     super(x, y, speed, parent);
 
-    sprite = new Sprite(loadImage("rocket_00.png"), 0, 0 , true);
+    sprite = new Sprite(loadImage("rocket_00.png"), 0, 0, true);
     dt = new DistanceTimer(1000, 400);
   }
 
@@ -32,11 +32,15 @@ class RocketParticle extends Particle {
   }
 
   void update() {
-    locRot.forward(dt.getForward());
+    if (!dt.isFinished()) {
+      locRot.forward(dt.getForward());
+    } else {
+      ps.clear(this.IDX);
+    }
   }
 
-  public void pointTo(float px, float py) {
-    locRot.pointTo(px, py);
+  public void pointTo(Target target) {
+    locRot.pointTo(target.getX(), target.getY());
   }
 
   public void jumpTo(float px, float py) {

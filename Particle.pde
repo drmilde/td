@@ -2,7 +2,7 @@
 // wird im Partikelsystem verwaltet
 // JTM 12/2018
 
-abstract class Particle implements IParticle {
+abstract class Particle implements IParticle, ITarget {
 
   // physikalische parameter
   protected PolarPosition locRot;  
@@ -20,7 +20,7 @@ abstract class Particle implements IParticle {
     this.locRot = new PolarPosition(x, y); 
     this.speed = speed;
     this.parent = parent;
-    this.IDX = idx;
+    setIDX(idx);
     this.sprite = null;
   }
 
@@ -35,11 +35,28 @@ abstract class Particle implements IParticle {
   abstract void draw(); // muss durch Subklasse implementiert werden
   abstract void update(); // muss durch Subklasse implementiert werden
 
-  public void pointTo(float px, float py) {
-    locRot.pointTo(px, py);
+  public void pointTo(ITarget target) {
+    locRot.pointTo(target.getX(), target.getY());
   }
 
   public void jumpTo(float px, float py) {
     locRot.jumpTo(px, py);
   }
+  
+  // getter, interface  ITarget   
+  public float getX() {
+    return locRot.getXPos();
+  }
+  
+  public float getY() {
+    return locRot.getYPos();
+  }
+  
+  
+  // setter 
+  public void setIDX(int idx) {
+    this.IDX = idx;
+  }
+  
+
 }
