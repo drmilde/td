@@ -13,11 +13,15 @@ abstract class Particle implements IParticle {
   protected ParticleSystem parent;
   protected int IDX = 0; // index wird duch das Partikelsystem bestimmt
 
+  // visuelle Repräsentation
+  protected Sprite sprite;
+
   private Particle(int idx, float x, float y, float speed, ParticleSystem parent) {
     this.locRot = new PolarPosition(x, y); 
     this.speed = speed;
     this.parent = parent;
     this.IDX = idx;
+    this.sprite = null;
   }
 
   public Particle(float x, float y, float speed, ParticleSystem parent) {

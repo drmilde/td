@@ -2,9 +2,12 @@
 // wird im Partikelsystem verwaltet
 // JTM 12/2018
 
-class SimpleParticle extends Particle { 
+class SimpleParticle extends Particle {   
   public SimpleParticle(float x, float y, float speed, ParticleSystem parent) {
     super(x, y, speed, parent);
+
+    sprite = new Sprite(loadImage("towerDefense_tile250_0_degrees.png"), 
+    10, 0 , true);
   }
 
   public SimpleParticle(float x, float y, ParticleSystem parent) {
@@ -17,10 +20,11 @@ class SimpleParticle extends Particle {
     pushStyle();
     translate(locRot.getXPos(), locRot.getYPos());
     rotate(locRot.getOrientation());
-    rect(0 - 35, 0 - 5, 70, 10);
-    fill(0);
-    textSize(22);
-    text(""+IDX, 0, 0);
+    sprite.draw();
+    //rect(0 - 35, 0 - 5, 70, 10);
+    //fill(0);
+    //textSize(22);
+    //text(""+IDX, 0, 0);
     popStyle();
     popMatrix();
   }
