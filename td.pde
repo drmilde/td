@@ -54,6 +54,7 @@ void mouseReleased() {
   // check, if placeable
   if (cm.collides(mouseX, mouseY, #ff0000)) {
     ps.add(new SimpleParticle(mouseX, mouseY, random(0, 0), ps));
-    ps.add(new RocketParticle(mouseX, mouseY, random(0, 0), ps));
+    println("placed a tower");
+    //ps.add(new RocketParticle(mouseX, mouseY, random(0, 0), ps));
   }
 }

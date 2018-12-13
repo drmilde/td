@@ -10,11 +10,12 @@ class RocketParticle extends Particle {
 
     sprite = new Sprite(loadImage("rocket_00.png"), 0, 0, true);
     dt = new DistanceTimer(1000, 400);
-    dead = true;
+    dead = false;
   }
 
   public RocketParticle(float x, float y, ParticleSystem parent) {
     super(x, y, 0, parent);
+    dead = false;
   }
 
   void draw() {
@@ -36,7 +37,7 @@ class RocketParticle extends Particle {
     if (!dt.isFinished()) {
       locRot.forward(dt.getForward());
     } else {
-      this.dead = true;
+      dead = true;
     }
   }
 
@@ -46,12 +47,5 @@ class RocketParticle extends Particle {
 
   public void jumpTo(float px, float py) {
     locRot.jumpTo(px, py);
-  }
-  
-  // interface IKillable
-  
-  public boolean isDead() {
-    return dead;
-  }
- 
+  } 
 }

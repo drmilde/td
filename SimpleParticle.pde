@@ -16,6 +16,7 @@ class SimpleParticle extends Particle implements ITimerCallback {
 
   public SimpleParticle(float x, float y, ParticleSystem parent) {
     super(x, y, 0, parent);
+    dead = false;
   }
 
   void draw() {
@@ -38,25 +39,12 @@ class SimpleParticle extends Particle implements ITimerCallback {
     spawnTimer.update();
   }
 
-  public void pointTo(float px, float py) {
-    locRot.pointTo(px, py);
-  }
-
-  public void jumpTo(float px, float py) {
-    locRot.jumpTo(px, py);
-  }
-
   // ITimerCallback
 
   public void alarm() {
     //println ("boom");
     ps.add(new RocketParticle(getX(), getY(), random(0, 0), parent));
   }
-  
-  // interface IKillable
-  
-  public boolean isDead() {
-    return dead;
-  }
+ 
   
 }

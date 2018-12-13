@@ -2,8 +2,7 @@
 // wird im Partikelsystem verwaltet
 // JTM 12/2018
 
-abstract class Particle implements IParticle, ITarget, IKillable {
-
+abstract class Particle implements IParticle, ITarget {
   // physikalische parameter
   protected PolarPosition locRot;  
   protected float speed = 0; // 
@@ -53,10 +52,13 @@ abstract class Particle implements IParticle, ITarget, IKillable {
     return locRot.getYPos();
   }
   
-  
   // setter 
   public void setIDX(int idx) {
     this.IDX = idx;
+  }
+  
+  public boolean isDead() {
+    return dead;
   }
   
 }

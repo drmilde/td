@@ -26,7 +26,7 @@ class ParticleSystem {
 
   public void clear() {
     for (int i = 0; i< MAX_NUMBER; i++) {
-      add(null);
+      teilchen[i] = null;
     }
   }
 
@@ -40,12 +40,30 @@ class ParticleSystem {
   }
 
   public void add (IParticle pt) {
-    if (pt != null) {
-      pt.setIDX(current);
+    boolean space = true;
+    if (teilchen[current] != null) {
+      space = adjustCurrent();
     }
-    teilchen[current] = pt;
+    
+    if (space) {
+      if (pt != null) {
+        pt.setIDX(current);
+      }
+      teilchen[current] = pt;
+    }
+
     current++;
     current %= MAX_NUMBER;
+  }
+
+  private boolean adjustCurrent() {
+    for (int i = 0; i< MAX_NUMBER; i++) {
+      if (teilchen[i] == null) {
+        current = i;
+        return false;
+      }
+    }
+    return true;
   }
 
 
@@ -62,6 +80,9 @@ class ParticleSystem {
     for (int i = 0; i< MAX_NUMBER; i++) {
       if (teilchen[i] != null) {
         teilchen[i].update();
+        if (teilchen[i].isDead()) {
+          teilchen[i] = null;
+        }
       }
     }
   }
