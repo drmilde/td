@@ -6,7 +6,7 @@ class Sprite {
   public Sprite(PImage img, float xo, float yo, boolean center) {
     this.image = img;
     if (center) {
-      setRotOffset(-img.width/2 + xo, -img.width/2 + yo);
+      setRotOffset(-img.width/2 + xo, -img.height/2 + yo);
     } else {
       setRotOffset(xo, yo);
     }

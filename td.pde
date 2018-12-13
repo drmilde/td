@@ -47,12 +47,12 @@ void draw() {
   //println(frameRate);
 }
 
-
 void mouseReleased() {
   tm.startTimer();  
   //ps.scramble();
   // check, if placeable
   if (cm.collides(mouseX, mouseY, #ff0000)) {
     ps.add(new SimpleParticle(mouseX, mouseY, random(0, 0), ps));
+    ps.add(new RocketParticle(mouseX, mouseY, random(0, 0), ps));
   }
 }

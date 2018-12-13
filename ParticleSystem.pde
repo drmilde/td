@@ -20,7 +20,7 @@ class ParticleSystem {
 
   private void createRandomParticles() {
     for (int i = 0; i< MAX_NUMBER; i++) {
-      add(new SimpleParticle(random (width), random(height), random (2, 4), this));
+      add(new RocketParticle(random (width), random(height), random (2, 4), this));
     }
   }
 

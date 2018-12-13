@@ -36,7 +36,7 @@ class Timer {
 
     return map(diff, 0, duration, from, to);
   }
-  
+
   public boolean isReady() {
     return ((millis() - startTime) > duration);
   }
@@ -58,14 +58,42 @@ class SystemTimer {
     startTime = millis();
     lastUpdateTime = startTime;
   }
-  
+
   public long update() {
     long diff = millis() - lastUpdateTime;
     lastUpdateTime = millis();
     return diff;
   }
-  
+
   public long runningFor() {
     return (millis() - startTime);
+  }
+}
+
+
+class DistanceTimer {
+  private long startTime;
+  private long duration;
+  private float distanceTravelled;
+  private float targetDistance;
+
+  public DistanceTimer(long duration, float to) {
+    this.duration = duration;
+    this.targetDistance = to;
+    startTimer();
+  }
+
+  public void startTimer() {
+    startTime = millis();
+    distanceTravelled = 0;
+  }
+
+  public float getForward() {
+    long diff = millis() - startTime;
+    float newPos = map(diff, 0, duration, 0, targetDistance);
+    newPos = constrain(newPos, 0, targetDistance);
+    float step = newPos - distanceTravelled;
+    distanceTravelled = newPos;
+    return step;
   }
 }

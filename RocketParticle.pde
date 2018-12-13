@@ -2,16 +2,17 @@
 // wird im Partikelsystem verwaltet
 // JTM 12/2018
 
-class SimpleParticle extends Particle {   
-  public SimpleParticle(float x, float y, float speed, ParticleSystem parent) {
+class RocketParticle extends Particle {
+  private DistanceTimer dt;
+  
+  public RocketParticle(float x, float y, float speed, ParticleSystem parent) {
     super(x, y, speed, parent);
 
-    sprite = new Sprite(
-    loadImage("towerDefense_tile250_0_degrees.png"), 
-    10, 0 , true);
+    sprite = new Sprite(loadImage("rocket_00.png"), 0, 0 , true);
+    dt = new DistanceTimer(1000, 400);
   }
 
-  public SimpleParticle(float x, float y, ParticleSystem parent) {
+  public RocketParticle(float x, float y, ParticleSystem parent) {
     super(x, y, 0, parent);
   }
 
@@ -31,7 +32,7 @@ class SimpleParticle extends Particle {
   }
 
   void update() {
-    locRot.forward(speed);
+    locRot.forward(dt.getForward());
   }
 
   public void pointTo(float px, float py) {
