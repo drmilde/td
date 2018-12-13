@@ -1,15 +1,14 @@
 class ParticleSystem {
-  private int MAX_NUMBER = 128;
-  private IParticle[] teilchen = new IParticle[MAX_NUMBER];
+  private IParticle[] teilchen = new IParticle[128];
   private int current = 0;
+  private int count = 0;
 
   public ParticleSystem(int size) {
     if (size > 0) {
-      this.MAX_NUMBER = size;
+      teilchen = new IParticle[size];
     } else {
-      this.MAX_NUMBER = 128;
+      teilchen = new IParticle[128];
     }
-    teilchen = new IParticle[MAX_NUMBER];
     initTeilchen();
   }
 
@@ -19,19 +18,25 @@ class ParticleSystem {
   }
 
   private void createRandomParticles() {
-    for (int i = 0; i< MAX_NUMBER; i++) {
+    for (int i = 0; i < teilchen.length; i++) {
       add(new RocketParticle(random (width), random(height), random (2, 4), this));
     }
   }
 
   public void clear() {
-    for (int i = 0; i< MAX_NUMBER; i++) {
+    for (int i = 0; i< teilchen.length; i++) {
       teilchen[i] = null;
     }
+    count = 0;
   }
 
   public void clear(int idx) {
     teilchen[idx] = null;
+    count--;
+  }
+
+  public boolean isFull() {
+    return (count >= teilchen.length);
   }
 
   // methoden particle system
@@ -40,36 +45,38 @@ class ParticleSystem {
   }
 
   public void add (IParticle pt) {
-    boolean space = true;
-    if (teilchen[current] != null) {
-      space = adjustCurrent();
-    }
-    
-    if (space) {
+    if (!isFull()) {
+      adjustCurrent();
       if (pt != null) {
         pt.setIDX(current);
       }
       teilchen[current] = pt;
-    }
 
-    current++;
-    current %= MAX_NUMBER;
+      current++;
+      current %= teilchen.length;
+
+      count++;
+    } 
   }
-
-  private boolean adjustCurrent() {
-    for (int i = 0; i< MAX_NUMBER; i++) {
+  
+  private void adjustCurrent() {
+    // aktuelles ist leer
+    if (teilchen[current] == null) {
+      return;
+    }
+   
+    // such dir eins
+    for (int i = 0; i < teilchen.length; i++) {
       if (teilchen[i] == null) {
         current = i;
-        return false;
+        return;
       }
     }
-    return true;
   }
-
 
   // interface methoden IUpdateable
   public void draw() {
-    for (int i = 0; i< MAX_NUMBER; i++) {
+    for (int i = 0; i< teilchen.length; i++) {
       if (teilchen[i] != null) {
         teilchen[i].draw();
       }
@@ -77,12 +84,17 @@ class ParticleSystem {
   }
 
   public void update() {
-    for (int i = 0; i< MAX_NUMBER; i++) {
+    for (int i = 0; i< teilchen.length; i++) {
       if (teilchen[i] != null) {
         teilchen[i].update();
+        
+        // entferne die leichen
         if (teilchen[i].isDead()) {
           teilchen[i] = null;
+          current = i;
+          count--;
         }
+        
       }
     }
   }
@@ -91,7 +103,7 @@ class ParticleSystem {
   // alle patrikel des Partikelsystem richten sich auf den 
   // punkt px, py hin aus
   public void pointTo(float px, float py) {
-    for (int i = 0; i< MAX_NUMBER; i++) {
+    for (int i = 0; i< teilchen.length; i++) {
       if (teilchen[i] != null) {
         teilchen[i].pointTo(new Target(px, py));
       }
@@ -100,7 +112,7 @@ class ParticleSystem {
 
   // test methode: ruft jumpTo(x,y) auf
   public void scramble() {
-    for (int i = 0; i< MAX_NUMBER; i++) {
+    for (int i = 0; i< teilchen.length; i++) {
       if (teilchen[i] != null) {
         teilchen[i].jumpTo(random(width), random(height));
       }

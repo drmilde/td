@@ -10,7 +10,7 @@ void setup() {
   size(1280, 720);
   tm = new Timer(1000, 0, width, false);
   //pt = new SimpleParticle(width/2, height/2, 3.5, null);
-  ps = new ParticleSystem(200);
+  ps = new ParticleSystem(300);
 
   level = loadImage("level_00.png");
   cm = new CollisionMap ("level_00.png");
