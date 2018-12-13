@@ -2,12 +2,13 @@
 // wird im Partikelsystem verwaltet
 // JTM 12/2018
 
-abstract class Particle implements IParticle, ITarget {
+abstract class Particle implements IParticle, ITarget, IKillable {
 
   // physikalische parameter
   protected PolarPosition locRot;  
   protected float speed = 0; // 
   protected float size = 30;
+  protected boolean dead = false;
 
   // umschließendes Partikelsystem
   protected ParticleSystem parent;
@@ -58,5 +59,4 @@ abstract class Particle implements IParticle, ITarget {
     this.IDX = idx;
   }
   
-
 }

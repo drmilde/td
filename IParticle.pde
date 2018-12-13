@@ -3,6 +3,10 @@ interface IUpdateable {
   public void draw();
 }
 
+interface IKillable {
+  public boolean isDead();
+}
+
 interface IParticle extends IUpdateable{
   // bewegungroutinen
   public void pointTo(ITarget target);

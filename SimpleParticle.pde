@@ -11,6 +11,7 @@ class SimpleParticle extends Particle implements ITimerCallback {
     sprite = new Sprite(loadImage("towerDefense_tile250_0_degrees.png"), 10, 0, true);
     spawnTimer = new Timer(200, 0, 1, true, this);
     spawnTimer.startTimer();
+    dead = false;
   }
 
   public SimpleParticle(float x, float y, ParticleSystem parent) {
@@ -51,4 +52,11 @@ class SimpleParticle extends Particle implements ITimerCallback {
     //println ("boom");
     ps.add(new RocketParticle(getX(), getY(), random(0, 0), parent));
   }
+  
+  // interface IKillable
+  
+  public boolean isDead() {
+    return dead;
+  }
+  
 }
