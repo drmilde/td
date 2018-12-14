@@ -1,6 +1,4 @@
 float x;
-Timer tm;
-//SimpleParticle pt;
 ParticleSystem ps;
 
 PImage level;
@@ -8,8 +6,6 @@ CollisionMap cm;
 
 void setup() {
   size(1280, 720);
-  tm = new Timer(1000, 0, width, false);
-  //pt = new SimpleParticle(width/2, height/2, 3.5, null);
   ps = new ParticleSystem(300);
 
   level = loadImage("level_00.png");
@@ -20,14 +16,6 @@ void draw() {
   background(127);
   image(level, 0, 0);
 
-  /*
-  x = tm.update();
-   ellipse(x, 360, 20,20);
-   
-   pt.pointTo(mouseX, mouseY);
-   pt.update();
-   pt.draw();
-   */
 
   ps.pointTo(mouseX, mouseY);
   ps.pointTo(width/2, height/2);
@@ -37,24 +25,31 @@ void draw() {
   // overlay circle
   if (cm.collides(mouseX, mouseY, #ff0000)) {
     pushStyle();
-      noFill();
-      strokeWeight(3);
-      stroke(#8CF0A2);
-      ellipse(mouseX, mouseY, 100,100);
+    noFill();
+    strokeWeight(3);
+    stroke(#8CF0A2);
+    ellipse(mouseX, mouseY, 100, 100);
     popStyle();
   }
-
-
-  //println(frameRate);
+  if (cm.collides(mouseX, mouseY, #0000ff)) {
+    pushStyle();
+    noFill();
+    strokeWeight(3);
+    stroke(#8CF0A2);
+    ellipse(mouseX, mouseY, 100, 100);
+    popStyle();
+  }
 }
 
 void mouseReleased() {
-  tm.startTimer();  
-  //ps.scramble();
   // check, if placeable
   if (cm.collides(mouseX, mouseY, #ff0000)) {
     ps.add(new SimpleParticle(mouseX, mouseY, random(0, 0), ps));
-    println("placed a tower");
+    println(frameRate);
+    // println("placed a tower");
     //ps.add(new RocketParticle(mouseX, mouseY, random(0, 0), ps));
+  }
+  if (cm.collides(mouseX, mouseY, #0000ff)) {
+    ps.add(new PathParticle(mouseX, mouseY, random(0, 0), ps));
   }
 }

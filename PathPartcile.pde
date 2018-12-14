@@ -1,19 +1,19 @@
-// Einfaches bewegbares Objekt
+// Pfad folgendes Objekt
 // wird im Partikelsystem verwaltet
 // JTM 12/2018
 
-class RocketParticle extends Particle {
+class PathParticle extends Particle {
   private DistanceTimer dt;
   
-  public RocketParticle(float x, float y, float speed, ParticleSystem parent) {
+  public PathParticle(float x, float y, float speed, ParticleSystem parent) {
     super(x, y, speed, parent);
 
     sprite = new Sprite(loadImage("rocket_00.png"), 0, 0, true);
-    dt = new DistanceTimer(2000, 600);
+    dt = new DistanceTimer(1000, 400);
     dead = false;
   }
 
-  public RocketParticle(float x, float y, ParticleSystem parent) {
+  public PathParticle(float x, float y, ParticleSystem parent) {
     super(x, y, 0, parent);
     dead = false;
   }

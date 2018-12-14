@@ -43,6 +43,11 @@ class PolarPosition {
     return orientation;
   }
 
+  // setter
+  public void setOrientation(float orientation) {
+    this.orientation = orientation;
+  }
+
   // helper polar
   private PVector polar(float r, float theta) {
     return new PVector(r*cos(theta), r*sin(theta)); // negate y for left handed coordinate system
