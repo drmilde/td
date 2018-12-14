@@ -29,6 +29,20 @@ class PolarPosition {
   public void pointTo(float px, float py) {
     orientation = radians(degrees(atan2(py-loc.y, px-loc.x)));
   }
+  
+  public float distance(PolarPosition other) {
+    float a = this.getXPos() - other.getXPos();
+    float b = this.getYPos() - other.getYPos();
+    
+    return (sqrt ((a*a) + (b*b)));
+  }
+
+  public float distance(float x, float y) {
+    float a = this.getXPos() - x;
+    float b = this.getYPos() - y;
+    
+    return (sqrt ((a*a) + (b*b)));
+  }
 
   // getter
   public float getXPos() {
