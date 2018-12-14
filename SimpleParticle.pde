@@ -9,6 +9,7 @@ class SimpleParticle extends Particle implements ITimerCallback {
     super(x, y, speed, parent);
 
     sprite = new Sprite(loadImage("towerDefense_tile250_0_degrees.png"), 10, 0, true);
+    sprite = new Sprite(loadImage("geschuetzturm_0_degrees.png"), 10, 0, true);
     spawnTimer = new Timer(200, 0, 1, true, this);
     spawnTimer.startTimer();
     dead = false;
@@ -45,6 +46,4 @@ class SimpleParticle extends Particle implements ITimerCallback {
     //println ("boom");
     ps.add(new RocketParticle(getX(), getY(), random(0, 0), parent));
   }
- 
-  
 }
