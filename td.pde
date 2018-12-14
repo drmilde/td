@@ -14,7 +14,7 @@ void setup() {
 
 void draw() {
   background(127);
-  image(level, 0, 0);
+  cm.draw();
 
 
   ps.pointTo(mouseX, mouseY);
@@ -50,6 +50,6 @@ void mouseReleased() {
     //ps.add(new RocketParticle(mouseX, mouseY, random(0, 0), ps));
   }
   if (cm.collides(mouseX, mouseY, #0000ff)) {
-    ps.add(new PathParticle(mouseX, mouseY, random(0, 0), ps));
+    ps.add(new PathParticle(mouseX, mouseY, cm.createTrackingPath(), ps));
   }
 }

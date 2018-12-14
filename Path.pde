@@ -23,6 +23,15 @@ class Path {
     current++;
   }
   
+  public PathElement get(int idx) {
+    if (idx < nodes.length) {
+      return nodes[idx];
+    }
+    return null;
+  }
   
+  public int getNumberOfPathElements() {
+    return current;
+  }
   
 }
